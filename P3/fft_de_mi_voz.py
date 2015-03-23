@@ -5,14 +5,14 @@ from scipy.fftpack import fft, fftfreq
 
 #Funcion principal
 def arm_principal(fft_x):
-    d = abs(fft_x[:,0])
+    d = abs(fft_x)
     temp = 0
     for element in d:
         if element > temp:
             temp = element    
     
     for i in range(10000):
-        if abs(fft_x[i,0]) == temp:
+        if abs(fft_x[i]) == temp:
             print 'A ' + str(freq[i]) + 'Hz se encuentra el armonico principal'       
             break
 
@@ -32,7 +32,7 @@ y = tmp
 #Grafica frecuencias
 fft_x = fft(y)/n# FFT Normalized
 freq = fftfreq(n,dt) # Recuperamos las frecuencias
-plot(freq,abs(fft_x[:,0]),'mv')
+plot(freq,abs(fft_x[:]),'m')
 savefig('mivoz_fft.png')
 close()
 
