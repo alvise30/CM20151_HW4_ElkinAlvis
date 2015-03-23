@@ -26,7 +26,7 @@ for(C in Ciudades) {
 write.csv(tidy, file = "temperaturas.csv")
 
 
-a <- ggplot(tidy, aes(x=fecha,y = temperatura, , color=ciudad)) + geom_point()
-a <- a + labs(title="Temperatura en algunas Capitales de Colombia 1967-2015") + facet_grid(~ ciudad, scales = "free")
+a <- ggplot(tidy, aes(x=fecha,y = temperatura, , color=ciudad)) + geom_line() + geom_point()
+a <- a + labs(title="Temperatura en algunas Capitales de Colombia") + facet_grid(~ ciudad, scales = "free")
 ggsave(filename='temperaturas.png', plot = a)
 print(a)
