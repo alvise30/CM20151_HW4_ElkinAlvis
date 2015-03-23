@@ -17,7 +17,7 @@ def arm_principal(fft_x):
             break
 
 #Cargamos el audio
-audio = 'alvis.wav'
+audio = 'prueba.wav'
 a = audiolab.sndfile(audio, 'read')
 tmp = a.read_frames(1e4)
 float_tmp = a.read_frames(1e4, dtype = float32)

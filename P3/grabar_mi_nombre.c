@@ -4,13 +4,14 @@
 
 #define SHELLSCRIPT "\
 #/bin/bash \n\
-arecord -d 3 prueba.wav \n\
+rec -c1 -b16 prueba.wav silence -l 0 1 00:00:03.00 1\% \n\
 "
 int main(){
   
   puts("Grabe su Nombre");
   system(SHELLSCRIPT);
   puts("Grabacion finalizada");
-  return 0;
+  
+return 0;
 
 }
