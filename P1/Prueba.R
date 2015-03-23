@@ -16,7 +16,7 @@ for(C in Ciudades) {
   tmp <- gather(tmp, mes, temperatura, JAN:DEC, na.rm = TRUE)
   names(tmp)[1] <- "año"
   tmp <- tmp[,datos,drop=FALSE] 
-  tmp <- mutate(tmp, fecha = paste(año, llenar(mes), "1", sep="/"))
+  tmp <- mutate(tmp, fecha = paste(año, llenar(mes), "1", sep="-"))
   tmp$ciudad = C
   tmp <- tmp[c("año", "mes", "fecha", "ciudad", "temperatura")]
   tmp[tmp == 999.9] <- NA
