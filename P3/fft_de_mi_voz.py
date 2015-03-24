@@ -3,38 +3,23 @@ from pylab import *
 import scikits.audiolab as audiolab
 from scipy.fftpack import fft, fftfreq
 
-#Funcion principal
-def arm_principal(fft_x):
-    d = abs(fft_x)
-    temp = 0
-    for element in d:
-        if element > temp:
-            temp = element    
-    
-    for i in range(10000):
-        if abs(fft_x[i]) == temp:
-            print 'A ' + str(freq[i]) + 'Hz se encuentra el armonico principal'       
-            break
 
 #Cargamos el audio
-audio = 'prueba.wav'
-a = audiolab.sndfile(audio, 'read')
-tmp = a.read_frames(1e4)
-float_tmp = a.read_frames(1e4, dtype = float32)
+input_signal, sampling_rate, enc = audiolab.wavread("alvis.wav") #entra por parametro el archivo grabado en script de C
+time_array = np.arange(0, len(input_signal)/float(sampling_rate), 1/float(sampling_rate)) #establece el conteo del tiempo
 
 #Transformada de Fourier
-n = 10000 # number of point in the whole interval
-f = 1/3.16 #  frequency in Hz
-dt = 1 / (f * n/4 ) #Entre 4 aun no se por q
-t = linspace( 0, (n-1)*dt, n) 
-y = tmp
+n = len(input_signal) #puntos por medicion
+f = 100.0 #float(sampling_rate) # frecuencia Hz
+dt = 1 / (f * n/32 ) #32 datos por frecuencia
+fft_x = fft(input_signal)/(n)# FFT Normalized
+freq = fftfreq(n,dt) # Recuperamos las frecuencias
 
 #Grafica frecuencias
-fft_x = fft(y)/n# FFT Normalized
-freq = fftfreq(n,dt) # Recuperamos las frecuencias
-plot(freq,abs(fft_x[:]),'m')
+plot(freq,abs(fft_x),'m')
+xlim(-20000,20000)
 savefig('mivoz_fft.png')
 close()
 
 #Mostrar en pantalla el armonico principal
-arm_principal(fft_x)
+print 'El armonico principal se encuentra en: ' + str(freq[argmax(abs(fft_x))]) + 'Hz'
