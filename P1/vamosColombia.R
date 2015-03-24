@@ -19,7 +19,7 @@ for(C in Ciudades) {
   tmp <- mutate(tmp, fecha = paste(año, llenar(mes), "1", sep="-"))
   tmp$ciudad = C
   tmp <- tmp[c("año", "mes", "fecha", "ciudad", "temperatura")]
-  tmp[tmp == 999.9] <- NA
+  tmp[tmp == 999.9] <- NULL
   tidy = rbind(tmp,tidy) #Agrupar todos los datos en un unico DataFrame  
 }
 
