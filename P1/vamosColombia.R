@@ -5,7 +5,7 @@ library(dplyr)
 library(lubridate)
 
 llenar <- function(x) match(tolower(x), tolower(month.abb))
-Ciudades <- c('bogota', 'quilla', 'bucaramanga', 'cali', 'ipiales')
+Ciudades <- c('Bogota', 'Barranquilla', 'Bucaramanga', 'Cali', 'Ipiales')
 a = c() #Serie vacia
 tidy = data.frame(a,a,a) # DataFrame vacio. En este data frame se van a guardar los datos tidy
 for(C in Ciudades) {
@@ -18,9 +18,9 @@ for(C in Ciudades) {
   tmp <- tmp[,datos,drop=FALSE] 
   tmp <- mutate(tmp, fecha = paste(año, llenar(mes), "1", sep="-"))
   tmp$ciudad = C
-  tmp <- tmp[c("año", "mes", "fecha", "ciudad", "temperatura")]
-  tmp[tmp == 999.9] <- NULL
+  tmp <- tmp[c("año", "mes", "fecha", "ciudad", "temperatura")]  
   tidy = rbind(tmp,tidy) #Agrupar todos los datos en un unico DataFrame  
+  tidy[tidy == 999.9] <- NA
 }
 
 write.csv(tidy, file = "temperaturas.csv")
